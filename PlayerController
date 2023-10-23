@@ -1,0 +1,75 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class playercontroller : MonoBehaviour
+{ //Variables de referencia general
+    private Rigidbody2D playerRB;
+    private Animator anim;
+    private float HorizontalInput;
+
+    [Header("Player Stats")]
+    public float speed;
+    [SerializeField] GameObject groundCheck;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] bool isGrounded;
+    private bool isFacingRight = true;
+
+   
+
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        playerRB = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, 0.1f, groundLayer);
+        Movement();
+    }
+
+
+    void Movement()
+    {
+        HorizontalInput = Input.GetAxis("Horizontal");
+
+        playerRB.velocity = new Vector2(HorizontalInput * speed, playerRB.velocity.y);
+
+        if (HorizontalInput > 0)
+        {
+            anim.SetBool("walk", true);
+            if (!isFacingRight) //isFacingRight == false
+            {
+                Flip();
+            }
+        }
+        if (HorizontalInput < 0)
+        {
+            anim.SetBool("walk", true);
+            if (isFacingRight)
+            {
+                Flip();
+            }
+        }
+        if (HorizontalInput == 0)
+        {
+            anim.SetBool("walk", false);
+        }
+    }
+
+    void Flip()
+    {
+        Vector3 currentScale = transform.localScale;
+        currentScale.x *= -1;
+        transform.localScale = currentScale;
+        isFacingRight = !isFacingRight; //Le cambio el valor del bool al valor contrario que tenga en ese momento
+
+    }
+
+}
