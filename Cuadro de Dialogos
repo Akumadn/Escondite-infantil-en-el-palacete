@@ -1,0 +1,27 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Dialogue;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+public class TriggerDialogue : MonoBehaviour
+{
+    public GameObject textBox;
+    public DialogueText dialogueText;
+
+    private Canvas _canvas;
+    private void Start()
+    {
+        _canvas = FindObjectOfType<Canvas>();
+    }
+
+    private void OnMouseDown()
+    {
+        if (FindObjectOfType(typeof(dialogue)) == null)
+        {
+            var instance = Instantiate(textBox, _canvas.transform);
+            instance.GetComponent<dialogue>().dialogueText = dialogueText;
+        }
+    }
+}
