@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class inventario : MonoBehaviour
+{
+    public List<GameObject> objetosRecogidos=new List<GameObject>();
+
+    public void AñadiObjeto(GameObject objeto)
+    {
+        if (TengoObjeto(objeto))
+        {
+            Debug.Log("Ya lo tienes en el inventario");
+        }
+        else
+        {
+            objetosRecogidos.Add(objeto);
+            
+        }
+        
+    }
+
+    public void DejarObjeto(GameObject objeto)
+    {
+        objetosRecogidos.Remove(objeto);
+    }
+
+    public bool TengoObjeto(GameObject objeto)
+    { 
+        return objetosRecogidos.Contains(objeto);
+    }
+}
