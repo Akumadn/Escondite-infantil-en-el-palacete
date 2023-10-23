@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class zonaInteraccion : MonoBehaviour
+{
+    public string textoInteraccion;
+    public Text textoinformativo;
+
+    private void Awake()
+    {
+        textoinformativo = GameObject.Find("textointeracciones").GetComponent(typeof(Text)) as Text;
+    }
+
+    private void OnMouseEnter()
+    {
+        textoinformativo.text = textoInteraccion;   
+    }
+
+    private void OnMouseExit()
+    {
+        textoinformativo.text = "";
+    }
+}
