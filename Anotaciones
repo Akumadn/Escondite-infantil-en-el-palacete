@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class recogerObjeto : MonoBehaviour
+{
+    inventario controlObjetos;
+    activar despierta;
+    
+    
+
+    private void Awake()
+    {
+        controlObjetos = GameObject.Find("inventario").GetComponent(typeof(inventario)) as inventario;
+        despierta = GameObject.Find("nota").GetComponent(typeof(activar)) as activar;
+
+    }
+
+    private void OnMouseDown()
+    {
+        audioManager.Instance.PlaySFX(0);
+        controlObjetos.AñadiObjeto(transform.gameObject);
+        despierta.Despierta();
+      
+    }
+}
