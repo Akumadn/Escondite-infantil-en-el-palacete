@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class cambiarEscena : MonoBehaviour
+{
+    private BoxCollider2D col;
+    [SerializeField] int sceneToLoad;
+
+
+    private void Start()
+    {
+        col = GetComponent<BoxCollider2D>();
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (col.OverlapPoint(mousePosition))
+            {
+                LoadScene(sceneToLoad);
+            }
+        }
+    }
+
+    private void LoadScene(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
+    }
+
+}
+
